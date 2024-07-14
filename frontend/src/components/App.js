@@ -8,7 +8,7 @@ import ImagePopup from "./ImagePopup";
 import api from "../utils/api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
-import EditAvatarPopup from "./EditAvatarPopup";
+import EditAvatarPopup from 'remoteApp/EditAvatarPopup';
 import AddPlacePopup from "./AddPlacePopup";
 import Register from "./Register";
 import Login from "./Login";
