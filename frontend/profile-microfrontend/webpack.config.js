@@ -1,6 +1,10 @@
-import { ModuleFederationPlugin } from '@module-federation/enhanced/webpack';
+const ModuleFederationPlugin = require ('webpack').container.ModuleFederationPlugin;
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { merge } = require('webpack-merge');
+const commonConfig = require('../webpack.common.js');
+const deps = require('./package.json').dependencies;
 
-module.exports = {
+module.exports = merge(commonConfig, {
     devServer: {
         port: 3001,
     },
@@ -26,4 +30,4 @@ module.exports = {
             }
         }),
     ]
-}
+})

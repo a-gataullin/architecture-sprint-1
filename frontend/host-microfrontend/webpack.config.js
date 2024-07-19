@@ -1,6 +1,10 @@
-import { ModuleFederationPlugin } from '@module-federation/enhanced/webpack';
+const ModuleFederationPlugin = require ('webpack').container.ModuleFederationPlugin;
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { merge } = require('webpack-merge');
+const commonConfig = require('../webpack.common.js');
+const deps = require('./package.json').dependencies;
 
-module.exports = {
+module.exports = merge(commonConfig, {
     // optimization: {
     //     // Only needed to bypass a temporary bug
     //     runtimeChunk: false
@@ -20,10 +24,19 @@ module.exports = {
             remotes: {
                 profile: "profile@http://localhost:3001/remoteEntry.js"
             },
-            shared: {
-                "react": {singleton: true},
-                "react-dom": {singleton: true},
-            }
+            shared: [
+                {
+                    "react": {singleton: true},
+                    "react-dom": {singleton: true},
+                },
+                './src/contexts/CurrentUserContext.js',
+            ]
         }),
+        new HtmlWebpackPlugin({
+            template: './public/index.html',
+            favicon: './public/favicon.ico',
+            filename: './index.html',
+            manifest: "./public/manifest.json"
+        })
     ]
-}
+})
