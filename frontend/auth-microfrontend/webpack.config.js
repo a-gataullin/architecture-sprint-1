@@ -6,7 +6,7 @@ const deps = require('./package.json').dependencies;
 
 module.exports = merge(commonConfig, {
     devServer: {
-        port: 3002,
+        port: 3001,
     },
     optimization: {
         // Only needed to bypass a temporary bug
@@ -14,10 +14,12 @@ module.exports = merge(commonConfig, {
     },
     plugins: [
         new ModuleFederationPlugin({
-            name: "profile",
+            name: "auth",
             filename: 'remoteEntry.js',
             exposes: {
-                './EditAvatarPopup': "./src/EditAvatarPopup.js"
+                './InfoTooltip': "./src/InfoTooltip.js",
+                './Login': "./src/Login.js",
+                './Register': "./src/Register.js"
             },
             shared: {
                 "react": {singleton: true},

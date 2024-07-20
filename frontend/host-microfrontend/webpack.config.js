@@ -5,24 +5,14 @@ const commonConfig = require('../webpack.common.js');
 const deps = require('./package.json').dependencies;
 
 module.exports = merge(commonConfig, {
-    // optimization: {
-    //     // Only needed to bypass a temporary bug
-    //     runtimeChunk: false
-    // },
     plugins: [
         new ModuleFederationPlugin({
             name: "host",
             filename: "remoteEntry.js",
-            // remotes: {
-            //     // "auth": "auth@http://localhost:3000/remoteEntry.js" ,        
-            //     // "cards": "cards@http://localhost:3000/remoteEntry.js",
-            //     // "profile": "",
-            // },
-            // exposes: {
-            //     './EditAvatarPopup': "../../profile-microfrontend/EditAvatarPopup.js"
-            // },
             remotes: {
-                profile: "profile@http://localhost:3001/remoteEntry.js"
+                auth: "auth@http://localhost:3001/remoteEntry.js",
+                profile: "profile@http://localhost:3002/remoteEntry.js",
+                card: "card@http://localhost:3003/remoteEntry.js"
             },
             shared: [
                 {
@@ -30,6 +20,7 @@ module.exports = merge(commonConfig, {
                     "react-dom": {singleton: true},
                 },
                 './src/contexts/CurrentUserContext.js',
+                './src/components/PopupWithForm.js'
             ]
         }),
         new HtmlWebpackPlugin({
